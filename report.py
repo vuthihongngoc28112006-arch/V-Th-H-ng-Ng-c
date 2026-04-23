@@ -1,9 +1,9 @@
 from tkinter import*
-from PIL import Image,ImageTK 
+from PIL import Image, ImageTk 
 from tkinter import ttk, messagebox
 import sqlite3
 class reportClass:
-    def _init_(self,root):
+    def __init__(self,root):
         self.root = root
         self. root.title("student result management system")
         self.root.geometry("1200x480+80+170")
@@ -15,7 +15,7 @@ class reportClass:
         self.var_search= StringVar()
         lbl_search=Label(self.root,text="search by roll No.",font=("arial",20,"bold"),bg ="white").place(x=280, y = 100)
         txt_search=Entry(self.root,textvariable=self.var_search,font=("arial",20),bg ="lightyellow").place(x=520, y= 100, width=150)
-        btn_search=Button(self.root,text='search', font =("arial",15,"bold"), bg="03a9f4",fg="white", cursor="hand2",command=self.search).place(x= 680,y= 100, width=100,height= 35)
+        btn_search=Button(self.root,text='search', font =("arial",15,"bold"), bg="#03a9f4",fg="white", cursor="hand2",command=self.search).place(x= 680,y= 100, width=100,height= 35)
         btn_clear=Button(self.root,text='clear', font =("arial",15,"bold"), bg="gray",fg="white", cursor="hand2",command=self.clear).place(x= 680,y= 100, width=100,height= 35)
 
         #result_label
@@ -60,6 +60,7 @@ class reportClass:
             messagebox.showerror("Error",f"Error due to {str(ex)}")
 
     def clear(self):
+        self.var_id=""
         self.roll.config(text="")
         self.name.config(text="")
         self.course.config(text="")
@@ -68,7 +69,26 @@ class reportClass:
         self.per.config(text="")
         self.var_search.set("")
 
-    
+    def delete(self):
+        con=sqlite3.connect(database="rms.db")
+        cur= con.cursor()
+        try:
+            if self.var_id=="":
+                messagebox.showerror("Error","search student result first",parent = self.root)
+            else:
+                cur.execute("select * from result where rid=?",(self.var_id,))
+                row=cur.fetchone()
+                if row==None:
+                    messagebox.showerror("Error","invalid student result",parent=self.root)
+                else:
+                    op= messagebox.askyesno("confirm", "do you want to delete?", parent=self.root)
+                    if op==True:
+                        cur.execute("delete from result where rid=?",(self.var_id()))
+                        con.commit()
+                        messagebox.showinfo("delete","result deleted successfully", parent=self.root)
+                        self.clear()
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to {str(ex)}")
 
 if __name__== "__main__":
     root=Tk()
