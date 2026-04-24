@@ -30,26 +30,26 @@ class resultClass:
 
 
         self.txt_student=ttk.Combobox(self.root,textvariable=self.var_roll,values=self.roll_list,font=("arial", 15, "bold"), state="readonly", justify=CENTER)
-        self.txt_student.place(x=280,y=100,width=300)
+        self.txt_student.place(x=280,y=100,width=320, height=30)
         self.txt_student.set("Select")
 
         self.txt_student['values'] = self.roll_list
-        btn_search=Button(self.root,text="Search", font=("arial",15,"bold"), bg="#03a9f4", fg="white",cursor="hand2",command=self.search).place(x=600,y=100,width=120,height=30)
+        btn_search=Button(self.root,text="Search", font=("arial",15,"bold"), bg="#03a9f4", fg="white",cursor="hand2",command=self.search).place(x=620,y=100,width=120,height=30)
 
-        txt_name=Entry(self.root,textvariable=self.var_name,font=("arial",20,"bold"),bg="lightyellow",state="readonly").place(x=280,y=160,width=300)
-        txt_course=Entry(self.root,textvariable=self.var_course,font=("arial",20,"bold"),bg="lightyellow",state="readonly").place(x=280,y=220,width=300)
-        txt_marks=Entry(self.root,textvariable=self.var_marks,font=("arial",20,"bold"),bg="lightyellow").place(x=280,y=280,width=300)
-        txt_full_marks=Entry(self.root,textvariable=self.var_full_marks,font=("arial",20,"bold"), bg="lightyellow").place(x=280,y=340,width=300)
+        txt_name=Entry(self.root,textvariable=self.var_name,font=("arial",20,"bold"),bg="lightyellow",state="readonly").place(x=280,y=160,width=320,height=30)
+        txt_course=Entry(self.root,textvariable=self.var_course,font=("arial",20,"bold"),bg="lightyellow",state="readonly").place(x=280,y=220,width=320,height=30)
+        txt_marks=Entry(self.root,textvariable=self.var_marks,font=("arial",20,"bold"),bg="lightyellow").place(x=280,y=280,width=320,height=30)
+        txt_full_marks=Entry(self.root,textvariable=self.var_full_marks,font=("arial",20,"bold"), bg="lightyellow").place(x=280,y=340,width=320,height=30)
 
         #button
-        btn_add=Button(self.root,text="Submit",font=("arial",15), bg="lightgreen", activebackground="lightgreen",cursor="hand2", command=self.add).place(x=300,y=420,width=120,height=35)
-        btn_clear=Button(self.root,text="Clear",font=("arial",15), bg="lightgray",activebackground="lightgray",cursor="hand2",command=self.clear).place(x=430,y=420,width=120,height=35)
+        btn_add=Button(self.root,text="Submit",font=("arial",15), bg="lightgreen", activebackground="lightgreen",cursor="hand2", command=self.add).place(x=280,y=420,width=140,height=40)
+        btn_clear=Button(self.root,text="Clear",font=("arial",15), bg="lightgray",activebackground="lightgray",cursor="hand2",command=self.clear).place(x=440,y=420,width=140,height=40)
         #image
         self.bg_img=Image.open("images/result.png")
-        self.bg_img=self.bg_img.resize((500,300),Image.LANCZOS)
+        self.bg_img=self.bg_img.resize((420,260),Image.LANCZOS)
         self.bg_img = ImageTk.PhotoImage(self.bg_img)
 
-        self.lbl_bg=Label(self.root,image=self.bg_img).place(x=700,y=120)
+        self.lbl_bg=Label(self.root,image=self.bg_img).place(x=720,y=120)
 #############################################################
     def fetch_roll(self):
         con=sqlite3.connect(database="rms.db")
