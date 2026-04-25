@@ -121,30 +121,6 @@ class resultClass:
         self.var_full_marks.set("")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     root = Tk()
     obj = resultClass(root)
