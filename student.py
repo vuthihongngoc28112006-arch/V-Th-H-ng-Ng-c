@@ -11,7 +11,7 @@ class StudentClass:
         self.root.config(bg="white")
         self.root.focus_force()
 
-        title = Label(self.root,text="Manage Student Details",font=("goudy old style", 20, "bold"),bg="#033054",fg="white")
+        title = Label(self.root,text="Student Management",font=("goudy old style", 20, "bold"),bg="#033054",fg="white")
         title.place(x=10, y=35, width=1180, height=35)
 
         self.var_student = StringVar()
@@ -150,7 +150,6 @@ class StudentClass:
         cur=con.cursor()
         try:
             cur.execute("CREATE TABLE IF NOT EXISTS student (cid INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,duration TEXT,charges TEXT,description TEXT)")
-            cur.execute("select * from student order by name asc")
             rows=cur.fetchall()
             self.StudentTable.delete(*self.StudentTable.get_children())
             for row in rows:
