@@ -6,7 +6,7 @@ class resultClass:
     def __init__(self, root):
         self.root=root
         self.root.title("Student Result Managment System")
-        self.root.geometry("1200x480+80+170")
+        self.root.geometry("1200x550+80+170")
         self.root.config(bg="white")
         self.root.focus_force()
         #title
@@ -18,6 +18,7 @@ class resultClass:
         self.var_course=StringVar()
         self.var_marks=StringVar()
         self.var_full_marks=StringVar()
+        self.var_credit = StringVar()
         self.roll_list=[]
         self.fetch_roll()
         
@@ -27,6 +28,8 @@ class resultClass:
         lbl_course=Label(self.root,text="Course",font=("arial",20,"bold"), bg="white").place(x=50, y=220)
         lbl_makrs_ob = Label(self.root, text="Marks Obtained", font=("arial", 20, "bold"), bg="white").place(x=50,y=280)
         lbl_full_marks=Label(self.root, text="Full Marks", font=("arial", 20, "bold"), bg="white").place(x=50, y=340)
+        lbl_credit = Label(self.root, text="Credit", font=("arial", 20, "bold"), bg="white")
+        lbl_credit.place(x=50, y=400)
 
 
         self.txt_student=ttk.Combobox(self.root,textvariable=self.var_roll,values=self.roll_list,font=("arial", 15, "bold"), state="readonly", justify=CENTER)
@@ -40,16 +43,18 @@ class resultClass:
         txt_course=Entry(self.root,textvariable=self.var_course,font=("arial",20,"bold"),bg="lightyellow",state="readonly").place(x=280,y=220,width=320,height=30)
         txt_marks=Entry(self.root,textvariable=self.var_marks,font=("arial",20,"bold"),bg="lightyellow").place(x=280,y=280,width=320,height=30)
         txt_full_marks=Entry(self.root,textvariable=self.var_full_marks,font=("arial",20,"bold"), bg="lightyellow").place(x=280,y=340,width=320,height=30)
+        txt_credit=Entry(self.root, textvariable=self.var_credit, font=("arial", 20, "bold"), bg="lightyellow")
+        txt_credit.place(x=280, y=400, width=320, height=30)
 
         #button
-        btn_add=Button(self.root,text="Submit",font=("arial",15), bg="lightgreen", activebackground="lightgreen",cursor="hand2", command=self.add).place(x=280,y=420,width=140,height=40)
-        btn_clear=Button(self.root,text="Clear",font=("arial",15), bg="lightgray",activebackground="lightgray",cursor="hand2",command=self.clear).place(x=440,y=420,width=140,height=40)
+        btn_add=Button(self.root,text="Submit",font=("arial",15), bg="lightgreen", activebackground="lightgreen",cursor="hand2", command=self.add).place(x=280,y=450,width=140,height=40)
+        btn_clear=Button(self.root,text="Clear",font=("arial",15), bg="lightgray",activebackground="lightgray",cursor="hand2",command=self.clear).place(x=440,y=450,width=140,height=40)
         #image
         self.bg_img=Image.open("images/result.png")
         self.bg_img=self.bg_img.resize((420,260),Image.LANCZOS)
         self.bg_img = ImageTk.PhotoImage(self.bg_img)
 
-        self.lbl_bg=Label(self.root,image=self.bg_img).place(x=720,y=120)
+        self.lbl_bg=Label(self.root,image=self.bg_img).place(x=720,y=180)
 #############################################################
     def fetch_roll(self):
         con=sqlite3.connect(database="rms.db")
@@ -92,19 +97,20 @@ class resultClass:
                 if row!=None:
                     messagebox.showerror("Error","Result already present", parent=self.root)
                 else:
-                    if self.var_marks.get()=="" or self.var_full_marks.get()=="":
-                        messagebox.showerror("Error","Please enter marks", parent=self.root)
+                    if self.var_marks.get()=="" or self.var_full_marks.get()=="" or self.var_credit.get()=="":
+                        messagebox.showerror("Error","Please enter marks and credit", parent=self.root)
                         return
 
                     per = (int(self.var_marks.get()) * 100) / int(self.var_full_marks.get())
-                    cur.execute("insert into result (roll, name, course, marks_ob, full_marks, per) values (?,?,?,?,?,?)",
+                    cur.execute("insert into result (roll, name, course, marks_ob, full_marks, per) values (?,?,?,?,?,?,?)",
             (
                 self.var_roll.get(),
                 self.var_name.get(),
                 self.var_course.get(),
                 self.var_marks.get(),
                 self.var_full_marks.get(),
-                str(per)
+                str(per),
+                int(self.var_credit.get())
             ))
                     con.commit()
                     messagebox.showinfo("Success", "Result Added Successfully", parent=self.root)
@@ -119,6 +125,7 @@ class resultClass:
         self.var_course.set("")
         self.var_marks.set("")
         self.var_full_marks.set("")
+        self.var_credit.set("")
 
 
 if __name__ == "__main__":

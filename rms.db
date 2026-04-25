@@ -1,0 +1,32 @@
+import sqlite3
+
+con = sqlite3.connect("rms.db")
+cur = con.cursor()
+
+# Tạo bảng student
+cur.execute("""
+CREATE TABLE IF NOT EXISTS student (
+    roll TEXT PRIMARY KEY,
+    name TEXT,
+    course TEXT
+)
+""")
+
+# Tạo bảng result (đã có credit)
+cur.execute("""
+CREATE TABLE IF NOT EXISTS result (
+    rid INTEGER PRIMARY KEY AUTOINCREMENT,
+    roll TEXT,
+    name TEXT,
+    course TEXT,
+    marks_ob INTEGER,
+    full_marks INTEGER,
+    per REAL,
+    credit INTEGER
+)
+""")
+
+con.commit()
+con.close()
+
+print("Tao database thanh cong")
