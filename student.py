@@ -150,7 +150,7 @@ class StudentClass:
         cur=con.cursor()
         try:
             cur.execute("CREATE TABLE IF NOT EXISTS student (cid INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,duration TEXT,charges TEXT,description TEXT)")
-            cur.execute("select * from student")
+            cur.execute("select * from student order by name asc")
             rows=cur.fetchall()
             self.StudentTable.delete(*self.StudentTable.get_children())
             for row in rows:
