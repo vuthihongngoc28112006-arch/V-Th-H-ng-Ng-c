@@ -44,3 +44,58 @@ class GPAClass:
         #resulf label
         self.lbl_resulf = Label(self.root, text="GPA: ", font=("arial", 18, "bold"), bg="white", fg="blue")
         self.lbl_resulf.place(x=200, y=250)
+
+    #fetch roll numbers
+
+
+
+
+
+
+
+    #Calculate GPA
+    def calculate_gpa(self):
+        if self.var_roll.get() =="Select":
+            messagebox.showerror("Error", "Please select student")
+            return 
+
+            con = sqlite3.connect("rms.db")
+            cur = con.cursor()
+
+            try:
+                cur.execute(
+                    "SELECT per, credit FROM result WHERE roll=?",
+                    (self.var_roll.get(),)
+                )
+                rows = cur.fetchall()
+
+                if len(rows) == 0:
+                    messagebox.showerror("Error", "No result found")
+                    return 
+
+                total_points = 0
+                total_credits = 0
+
+                for row in rows:
+                    per = float(row[0])
+                    credit = int(row[1])
+
+                    gpa = self.percent_to_gpa(per)
+
+                    total_points += gpa * credit
+                    total_credits += credit
+                
+                final_gpa = total_point / total_credits if total_credits != 0 else 0
+
+                self.lbl_result.config(text=f"GPA: {round(finaal_gpa, 2)}")
+
+            except Exception as ex:
+                messagebox.showerror("Error", str(ex))
+            finally:
+                con.close()
+
+
+if __name__ = "__main__":
+    root = Tk()
+    obj = GPAClass(root)
+    root.mainloop()
