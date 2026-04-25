@@ -67,6 +67,7 @@ class StudentClass:
         self.show()
 
     def clear(self):
+        self.clear()
         self.show()
         self.var_student.set("")
         self.var_duration.set("")
