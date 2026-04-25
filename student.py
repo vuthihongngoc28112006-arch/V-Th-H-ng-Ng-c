@@ -74,6 +74,7 @@ class StudentClass:
         self.var_search.set("")
         self.txt_description.delete('1.0',END)
         self.txt_studentName.config(state=NORMAL)
+        self.txt_studentName.focus()
 
     def add(self):
         con=sqlite3.connect(database="rms.db")
