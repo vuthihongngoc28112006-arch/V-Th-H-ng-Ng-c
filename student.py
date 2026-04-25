@@ -79,7 +79,7 @@ class StudentClass:
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
-            if self.var_student.get()=="":
+            if self.var_student.get().strip()=="":
                 messagebox.showerror("Error","Student Name required",parent=self.root)
             else:
                 cur.execute("select * from student where name=?",(self.var_student.get(),))
