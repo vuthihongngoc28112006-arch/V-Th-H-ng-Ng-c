@@ -15,20 +15,21 @@ class StudentClass:
         title.place(x=10, y=35, width=1180, height=35)
 
         self.var_student = StringVar()
-        self.var_duration = StringVar()
-        self.var_charges = StringVar()
+        self.var_course = StringVar()
+        self.var_roll = StringVar()
+        self.var_desc=StringVar()
 
         Label(self.root,text="Student Name",font=("goudy old style", 15, "bold"), bg="white").place(x=10, y=90)
-        Label(self.root,text="Duration",font=("goudy old style", 15, "bold"), bg="white").place(x=10, y=140)
-        Label(self.root,text="Charges",font=("goudy old style", 15, "bold"), bg="white").place(x=10, y=190)
+        Label(self.root,text="Course",font=("goudy old style", 15, "bold"), bg="white").place(x=10, y=190)
+        Label(self.root,text="Roll",font=("goudy old style", 15, "bold"), bg="white").place(x=10, y=140)     
         Label(self.root,text="Description",font=("goudy old style", 15, "bold"), bg="white").place(x=10, y=240)
 
         self.txt_studentName = Entry(self.root,textvariable=self.var_student,font=("goudy old style", 15, "bold"), bg="lightyellow")
         self.txt_studentName.place(x=200, y=90, width=200)
-        self.txt_duration = Entry(self.root,textvariable=self.var_duration,font=("goudy old style", 15, "bold"), bg="lightyellow")
-        self.txt_duration.place(x=200, y=140, width=200)
-        self.txt_charges = Entry(self.root,textvariable=self.var_charges,font=("goudy old style", 15, "bold"), bg="lightyellow")
-        self.txt_charges.place(x=200, y=190, width=200)
+        self.txt_course = Entry(self.root,textvariable=self.var_course,font=("goudy old style", 15, "bold"), bg="lightyellow")
+        self.txt_course.place(x=200, y=140, width=200)
+        self.txt_roll = Entry(self.root,textvariable=self.var_roll,font=("goudy old style", 15, "bold"), bg="lightyellow")
+        self.txt_roll.place(x=200, y=190, width=200)
         self.txt_description = Text(self.root,font=("goudy old style", 15, "bold"), bg="lightyellow")
         self.txt_description.place(x=200, y=240, width=500, height=100)
 
@@ -48,16 +49,16 @@ class StudentClass:
         scrollx=Scrollbar(self.C_Frame,orient=HORIZONTAL)
         scrolly=Scrollbar(self.C_Frame,orient=VERTICAL)
 
-        self.StudentTable=ttk.Treeview(self.C_Frame,columns=("cid","name","duration","charges","description"),xscrollcommand=scrollx.set,yscrollcommand=scrolly.set)
+        self.StudentTable=ttk.Treeview(self.C_Frame,columns=("name","roll","course","description"),xscrollcommand=scrollx.set,yscrollcommand=scrolly.set)
         scrollx.pack(side=BOTTOM,fill=X)
         scrolly.pack(side=RIGHT,fill=Y)
         scrollx.config(command=self.StudentTable.xview)
         scrolly.config(command=self.StudentTable.yview)
 
-        self.StudentTable.heading("cid",text="Course ID")
+        self.StudentTable.heading("roll",text="Student ID")
         self.StudentTable.heading("name",text="Name")
-        self.StudentTable.heading("duration",text="Duration")
-        self.StudentTable.heading("charges",text="Charges")
+        self.StudentTable.heading("roll",text="Roll")
+        self.StudentTable.heading("course",text="Course")
         self.StudentTable.heading("description",text="Description")
 
         self.StudentTable["show"]="headings"
@@ -69,8 +70,8 @@ class StudentClass:
     def clear(self):
         self.show()
         self.var_student.set("")
-        self.var_duration.set("")
-        self.var_charges.set("")
+        self.var_course.set("")
+        self.var_roll.set("")
         self.var_search.set("")
         self.txt_description.delete('1.0',END)
         self.txt_studentName.config(state=NORMAL)
@@ -87,10 +88,11 @@ class StudentClass:
                 if row!=None:
                     messagebox.showerror("Error","Student already present",parent=self.root)
                 else:
-                    cur.execute("insert into student(roll, name, course) values(?,?,?)",(
-                        self.var_roll.get(),
+                    cur.execute("INSERT INTO student (name, course, roll, description) VALUES (?, ?, ?, ?)",(
                         self.var_student.get(),
-                        self.var_course.get()
+                        self.var_course.get(),
+                        self.var_roll.get(),
+                        self.txt_description.get("1.0", END)
                     ))
                     con.commit()
                     messagebox.showinfo("Success","Student Added Successfully",parent=self.root)
@@ -105,12 +107,17 @@ class StudentClass:
             if self.var_student.get()=="":
                 messagebox.showerror("Error","Student Name required",parent=self.root)
             else:
-                cur.execute("update student set duration=?,charges=?,description=? where name=?",(
-                    self.var_duration.get(),
-                    self.var_charges.get(),
-                    self.txt_description.get("1.0",END),
-                    self.var_student.get()
-                ))
+                cur.execute("""
+                    update student 
+                    set name=?, course=?, roll=?, description=? 
+                    where cid=?
+                    """,(
+                        self.var_student.get(),
+                        self.var_course.get(),
+                        self.var_roll.get(),
+                        self.txt_description.get("1.0", END),
+                        self.var_id
+                    ))
                 con.commit()
                 messagebox.showinfo("Success","Student Updated Successfully",parent=self.root)
                 self.clear()
@@ -136,22 +143,25 @@ class StudentClass:
         r=self.StudentTable.focus()
         content=self.StudentTable.item(r)
         row=content["values"]
-        self.var_student.set(row[1])
-        self.var_duration.set(row[2])
-        self.var_charges.set(row[3])
-        self.txt_description.delete('1.0',END)
-        self.txt_description.insert(END,row[4])
+        self.var_id = self.StudentTable.item(r, "tags")[0]  
+
+        self.var_student.set(row[0])
+        self.var_course.set(row[1])
+        self.var_roll.set(row[2])
+
+        self.txt_description.delete("1.0", END)
+        self.txt_description.insert(END, row[3])
 
     def show(self):
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
-            cur.execute("CREATE TABLE IF NOT EXISTS student (cid INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,duration TEXT,charges TEXT,description TEXT)")
-            cur.execute("select * from student")
+            cur.execute("CREATE TABLE IF NOT EXISTS student (cid INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,course TEXT,roll TEXT,description TEXT)")
+            cur.execute("SELECT * FROM student ORDER BY cid ASC")
             rows=cur.fetchall()
             self.StudentTable.delete(*self.StudentTable.get_children())
             for row in rows:
-                self.StudentTable.insert('',END,values=row)
+                self.StudentTable.insert('', 'end', values=row[1:], tags=(row[0],))
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to {str(ex)}")
 
@@ -163,7 +173,7 @@ class StudentClass:
             rows=cur.fetchall()
             self.StudentTable.delete(*self.StudentTable.get_children())
             for row in rows:
-                self.StudentTable.insert('',END,values=row)
+                self.StudentTable.insert('', END, values=row[1:], tags=(row[0],))
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to {str(ex)}")
 
