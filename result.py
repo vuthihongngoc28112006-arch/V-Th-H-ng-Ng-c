@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import Image,ImageTk #pip install pillow
 from tkinter import ttk, messagebox
 import sqlite3
+import os
 class resultClass:
     def __init__(self, root):
         self.root=root
@@ -9,6 +10,9 @@ class resultClass:
         self.root.geometry("1200x550+80+170")
         self.root.config(bg="white")
         self.root.focus_force()
+        self.roll_list=[]
+        self.fetch_roll()
+        
         #title
         title=Label(self.root,text="Add Student Results", font=("arial", 20, "bold"), bg="orange", fg="#262626").place(x=10, y=15, width=1180, height =50) 
         #widgets
