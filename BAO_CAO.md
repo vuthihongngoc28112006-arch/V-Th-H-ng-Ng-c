@@ -171,33 +171,7 @@ START
        └─ Hiển thị xếp loại học lực
 END
 ```
-
----
-
-## 9. HƯỚNG DẪN CÀI ĐẶT
-
-### Bước 1: Cài đặt thư viện
-```bash
-pip install pillow
-```
-
-### Bước 2: Tạo database (chỉ 1 lần)
-```bash
-python create_db.py
-```
-
-### Bước 3: Chạy ứng dụng
-```bash
-python dashboard.py
-```
-
-### Yêu cầu:
-- Python 3.8+
-- Windows (Tkinter có sẵn)
-
----
-
-## 10. HƯỚNG PHÁT TRIỂN
+## 9. HƯỚNG PHÁT TRIỂN
 
 | Tính năng | Mô tả |
 |-----------|-------|
@@ -208,17 +182,6 @@ python dashboard.py
 | Backup tự động | Sao lưu database định kỳ |
 | Web version | Phát triển thành web app |
 
----
-
-## 11. KẾT LUẬN
-
-Dự án RMS hoàn thành đầy đủ chức năng:
-✅ Quản lý sinh viên
-✅ Nhập & lưu kết quả
-✅ Tra cứu báo cáo
-✅ Tính GPA tự động
-✅ Giao diện dễ sử dụng
-✅ Dữ liệu an toàn với SQLite
 
 Nền tảng tốt để nâng cấp thành hệ thống quản lý học vụ hoàn chỉnh!
 
