@@ -1,0 +1,22 @@
+[33ma641451[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m xoa file gpa khong dung nua
+[33m5dddace[m update GPA + credit
+[33md279466[m update UI header text
+[33mbb294c4[m update application title
+[33ma4450dc[m :wqMerge branch 'main' of https://github.com/vuthihongngoc28112006-arch/V-Th-H-ng-Ng-c A ggit pull origin main --rebase it push# the commit.
+[33mbab2e00[m sort students by name in ascending order
+[33mece5dc3[m add pic to dashboard
+[33mc7c3b46[m auto refresh table after adding student
+[33m408f3dd[m improve UX by focusing input after clear
+[33m95d74b1[m add validation for empty student name
+[33m60cf247[m Merge branch 'main' of https://github.com/vuthihongngoc28112006-arch/V-Th-H-ng-Ng-c
+[33mfe5375e[m merge code local va github
+[33mb384ece[m Add files via upload
+[33m07eb478[m add student module
+[33m8bb7501[m lan dau
+[33m1f4da24[m  chuc nang tinh gpa va xep loai
+[33m37a664b[m gpa
+[33m07a9e37[m them chuc nang nhap ket qua sv
+[33m8903d09[m can chinh
+[33m5b9cfaf[m fix loi
+[33m412778e[m first commit
+[33m7633900[m Initial commit
