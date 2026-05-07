@@ -2,7 +2,6 @@ from tkinter import *
 from PIL import Image,ImageTk #pip install pillow
 from tkinter import ttk, messagebox
 import sqlite3
-import os
 class resultClass:
     def __init__(self, root):
         self.root=root
@@ -10,9 +9,6 @@ class resultClass:
         self.root.geometry("1200x550+80+170")
         self.root.config(bg="white")
         self.root.focus_force()
-        self.roll_list=[]
-        self.fetch_roll()
-        
         #title
         title=Label(self.root,text="Add Student Results", font=("arial", 20, "bold"), bg="orange", fg="#262626").place(x=10, y=15, width=1180, height =50) 
         #widgets
@@ -106,16 +102,16 @@ class resultClass:
                         return
 
                     per = (int(self.var_marks.get()) * 100) / int(self.var_full_marks.get())
-                    cur.execute("insert into result (roll, name, course, marks_ob, full_marks, per, credit) values (?,?,?,?,?,?,?)",
-                (
-                    self.var_roll.get(),
-                    self.var_name.get(),
-                    self.var_course.get(),
-                    self.var_marks.get(),
-                    self.var_full_marks.get(),
-                    str(per),
-                    int(self.var_credit.get())
-                ))
+                    cur.execute("insert into result (roll, name, course, marks_ob, full_marks, per) values (?,?,?,?,?,?,?)",
+            (
+                self.var_roll.get(),
+                self.var_name.get(),
+                self.var_course.get(),
+                self.var_marks.get(),
+                self.var_full_marks.get(),
+                str(per),
+                int(self.var_credit.get())
+            ))
                     con.commit()
                     messagebox.showinfo("Success", "Result Added Successfully", parent=self.root)
         except Exception as ex:
