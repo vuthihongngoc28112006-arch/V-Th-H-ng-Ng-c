@@ -167,7 +167,7 @@ START
        ├─ Tính GPA tổng
        └─ Hiển thị xếp loại học lực
 END
-## 10. HƯỚNG PHÁT TRIỂN
+## 9. HƯỚNG PHÁT TRIỂN
 
 | Tính năng | Mô tả |
 |-----------|-------|
