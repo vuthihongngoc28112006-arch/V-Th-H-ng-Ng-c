@@ -1,7 +1,6 @@
 # BÁO CÁO ĐỒ ÁN: HỆ THỐNG QUẢN LÝ KẾT QUẢ HỌC TẬP
 ## 1. GIỚI THIỆU
-Tên dự án: Student Result Management System (RMS)
-
+Tên dự án: Ứng dụng quản lý sinh viên 
 Mục đích:Xây dựng ứng dụng desktop quản lý kết quả học tập sinh viên
 
 Công nghệ:Python + Tkinter + SQLite
@@ -168,33 +167,6 @@ START
        ├─ Tính GPA tổng
        └─ Hiển thị xếp loại học lực
 END
-```
-
----
-
-## 9. HƯỚNG DẪN CÀI ĐẶT
-
-### Bước 1: Cài đặt thư viện
-```bash
-pip install pillow
-```
-
-### Bước 2: Tạo database (chỉ 1 lần)
-```bash
-python create_db.py
-```
-
-### Bước 3: Chạy ứng dụng
-```bash
-python dashboard.py
-```
-
-### Yêu cầu:
-- Python 3.8+
-- Windows (Tkinter có sẵn)
-
----
-
 ## 10. HƯỚNG PHÁT TRIỂN
 
 | Tính năng | Mô tả |
