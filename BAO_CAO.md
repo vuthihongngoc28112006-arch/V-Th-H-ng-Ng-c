@@ -182,9 +182,3 @@ END
 | Backup tự động | Sao lưu database định kỳ |
 | Web version | Phát triển thành web app |
 
-
-Nền tảng tốt để nâng cấp thành hệ thống quản lý học vụ hoàn chỉnh!
-
----
-
-*Báo cáo tự gõ tay - Dễ hiểu - Có sơ đồ minh họa*
