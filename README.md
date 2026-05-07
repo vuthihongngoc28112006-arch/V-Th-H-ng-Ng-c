@@ -1,7 +1,7 @@
 # BÁO CÁO ĐỒ ÁN: HỆ THỐNG QUẢN LÝ KẾT QUẢ HỌC TẬP
 ## 1. GIỚI THIỆU
 Tên dự án: Ứng dụng quản lý sinh viên 
-Mục đích:Xây dựng ứng dụng desktop quản lý kết quả học tập sinh viên
+Mục đích:Xây dựng ứng dụng quản lý kết quả học tập sinh viên
 
 Công nghệ:Python + Tkinter + SQLite
 
@@ -15,7 +15,7 @@ Công nghệ:Python + Tkinter + SQLite
 - Không tính GPA tự động
 
 ### Giải pháp:
-- Ứng dụng desktop thao tác dễ
+- Ứng dụng thao tác dễ
 - Lưu dữ liệu vào database
 - Tính GPA tự động
 
